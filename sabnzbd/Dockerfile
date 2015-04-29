@@ -11,6 +11,6 @@ RUN add-apt-repository -y ppa:jcfp/ppa
 RUN apt-get -q update
 RUN apt-mark hold initscripts udev plymouth mountall
 
-RUN apt-get install -qy --force-yes sabnzbdplus sabnzbdplus-theme-classic sabnzbdplus-theme-mobile sabnzbdplus-theme-plush par2 python-yenc unrar unzip 
+RUN apt-get install -qy --force-yes sabnzbdplus par2 python-yenc unrar unzip 
 
 ENTRYPOINT ["/usr/bin/sabnzbdplus", "-b", "0", "-f", "/mnt/state/sabnzbd.ini", "--server", ":8080"]

@@ -10,6 +10,10 @@ data:
 sonarr:
   image: tuxeh/sonarr
   restart: always
+  dns:
+    - 192.168.1.1
+    - 8.8.8.8
+    - 8.8.4.4
   expose: 
     - "8989"
   ports: 
@@ -24,6 +28,10 @@ sonarr:
 couchpotato:
   build: couchpotato
   restart: always
+  dns:
+    - 192.168.1.1
+    - 8.8.8.8
+    - 8.8.4.4
   expose: 
     - "5050"
   ports: 
@@ -36,6 +44,10 @@ couchpotato:
 deluge:
   build: deluge
   restart: always
+  dns:
+    - 192.168.1.1
+    - 8.8.8.8
+    - 8.8.4.4
   expose:
     - "58846"
     - "8112"
@@ -52,6 +64,10 @@ deluge:
 headphones:
   build: headphones
   restart: always
+  dns:
+    - 192.168.1.1
+    - 8.8.8.8
+    - 8.8.4.4
   expose:
     - "8181"
   ports:
@@ -64,6 +80,10 @@ headphones:
 sabnzbd:
   build: sabnzbd
   restart: always
+  dns:
+    - 192.168.1.1
+    - 8.8.8.8
+    - 8.8.4.4
   expose:
     - "8080"
   ports:
