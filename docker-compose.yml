@@ -25,21 +25,24 @@ sonarr:
     - /media/jeff/nas:/volumes/media:rw
     - /etc/localtime:/etc/localtime:ro
 
-couchpotato:
-  build: couchpotato
+radarr:
+  image: linuxserver/radarr
   restart: always
   dns:
     - 192.168.1.1
     - 8.8.8.8
     - 8.8.4.4
-  expose: 
-    - "5050"
-  ports: 
-    - "5050:5050"
-  volumes_from:
-    - data
+  expose:
+    - "7878"
+  ports:
+    - "7878:7878"
+  environment:
+    - PUID=1000
+    - PGID=1000
   volumes:
-    - /mnt/storage/dockerdata/couchpotato:/mnt/state:rw
+    - /mnt/storage/downloads:/downloads:rw
+    - /mnt/storage/dockerdata/radarr:/config:rw
+    - /media/jeff/nas/Movies:/movies:rw
 
 deluge:
   build: deluge
