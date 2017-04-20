@@ -1,97 +1,97 @@
-data:
-  image: busybox
-  restart: always
-  volumes:
-    - /mnt/storage/tmp:/mnt/tmp:rw
-    - /mnt/storage/downloads:/mnt/downloads:rw
-    - /media/jeff/nas:/mnt/nas:rw
-    - /etc/localtime:/etc/localtime:ro
+version: '3'
+services:
 
-sonarr:
-  image: tuxeh/sonarr
-  restart: always
-  dns:
-    - 192.168.1.1
-    - 8.8.8.8
-    - 8.8.4.4
-  expose: 
-    - "8989"
-  ports: 
-    - "8989:8989"
-  user: "root"
-  volumes:
-    - /mnt/storage/downloads:/volumes/completed:rw 
-    - /mnt/storage/dockerdata/sonarr:/volumes/config:rw
-    - /media/jeff/nas:/volumes/media:rw
-    - /etc/localtime:/etc/localtime:ro
+  sonarr:
+    image: tuxeh/sonarr
+    restart: always
+    dns:
+      - 192.168.1.1
+      - 8.8.8.8
+      - 8.8.4.4
+    expose:
+      - "8989"
+    ports:
+      - "8989:8989"
+    user: "root"
+    volumes:
+      - /mnt/storage/downloads:/volumes/completed:rw
+      - /mnt/storage/dockerdata/sonarr:/volumes/config:rw
+      - /media/jeff/nas:/volumes/media:rw
+      - /etc/localtime:/etc/localtime:ro
 
-radarr:
-  image: linuxserver/radarr
-  restart: always
-  dns:
-    - 192.168.1.1
-    - 8.8.8.8
-    - 8.8.4.4
-  expose:
-    - "7878"
-  ports:
-    - "7878:7878"
-  environment:
-    - PUID=1000
-    - PGID=1000
-  volumes:
-    - /mnt/storage/downloads:/downloads:rw
-    - /mnt/storage/dockerdata/radarr:/config:rw
-    - /media/jeff/nas/Movies:/movies:rw
+  radarr:
+    image: linuxserver/radarr
+    restart: always
+    dns:
+      - 192.168.1.1
+      - 8.8.8.8
+      - 8.8.4.4
+    expose:
+      - "7878"
+    ports:
+      - "7878:7878"
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /mnt/storage/downloads:/mnt/downloads:rw
+      - /mnt/storage/dockerdata/radarr:/config:rw
+      - /media/jeff/nas/Movies:/movies:rw
 
-deluge:
-  build: deluge
-  restart: always
-  dns:
-    - 192.168.1.1
-    - 8.8.8.8
-    - 8.8.4.4
-  expose:
-    - "58846"
-    - "8112"
-    - "53160"
-    - "53160/udp"
-  ports:
-    - "58846:58846"
-    - "8112:8112"
-  volumes_from:
-    - data
-  volumes:
-    - /mnt/storage/dockerdata/deluge:/mnt/state:rw
+  deluge:
+    build: deluge
+    restart: always
+    dns:
+      - 192.168.1.1
+      - 8.8.8.8
+      - 8.8.4.4
+    expose:
+      - "58846"
+      - "8112"
+      - "53160"
+      - "53160/udp"
+    ports:
+      - "58846:58846"
+      - "8112:8112"
+    volumes:
+      - /mnt/storage/dockerdata/deluge:/mnt/state:rw
+      - /mnt/storage/tmp:/mnt/tmp:rw
+      - /mnt/storage/downloads:/mnt/downloads:rw
+      - /media/jeff/nas:/mnt/nas:rw
+      - /etc/localtime:/etc/localtime:ro
 
-headphones:
-  build: headphones
-  restart: always
-  dns:
-    - 192.168.1.1
-    - 8.8.8.8
-    - 8.8.4.4
-  expose:
-    - "8181"
-  ports:
-    - "8181:8181"
-  volumes_from:
-    - data
-  volumes:
-    - /mnt/storage/dockerdata/headphones:/mnt/state:rw
+  headphones:
+    build: headphones
+    restart: always
+    dns:
+      - 192.168.1.1
+      - 8.8.8.8
+      - 8.8.4.4
+    expose:
+      - "8181"
+    ports:
+      - "8181:8181"
+    volumes:
+      - /mnt/storage/dockerdata/headphones:/mnt/state:rw
+      - /mnt/storage/tmp:/mnt/tmp:rw
+      - /mnt/storage/downloads:/mnt/downloads:rw
+      - /media/jeff/nas:/mnt/nas:rw
+      - /etc/localtime:/etc/localtime:ro
 
-sabnzbd:
-  build: sabnzbd
-  restart: always
-  dns:
-    - 192.168.1.1
-    - 8.8.8.8
-    - 8.8.4.4
-  expose:
-    - "8080"
-  ports:
-    - "8080:8080"
-  volumes_from:
-    - data
-  volumes:
-    - /mnt/storage/dockerdata/sabnzbd:/mnt/state:rw
+  sabnzbd:
+    build: sabnzbd
+    restart: always
+    dns:
+      - 192.168.1.1
+      - 8.8.8.8
+      - 8.8.4.4
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    volumes:
+      - /mnt/storage/dockerdata/sabnzbd:/mnt/state:rw
+      - /mnt/storage/tmp:/mnt/tmp:rw
+      - /mnt/storage/downloads:/mnt/downloads:rw
+      - /media/jeff/nas:/mnt/nas:rw
+      - /etc/localtime:/etc/localtime:ro
