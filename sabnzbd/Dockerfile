@@ -1,12 +1,9 @@
 FROM ubuntu:latest
 MAINTAINER Jeff Sturgis <jeffsturgis@gmail.com>
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN locale-gen en_US en_US.UTF-8
-
-RUN echo "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) multiverse" >> /etc/apt/sources.list
-
-RUN apt-get -q update
-RUN apt-get -y install software-properties-common
+RUN apt-get clean && apt-get update
+RUN apt-get -y install software-properties-common locales && locale-gen en_US en_US.UTF-8
 RUN add-apt-repository -y ppa:jcfp/ppa
 RUN add-apt-repository -y ppa:jcfp/sab-addons
 RUN apt-get -q update
