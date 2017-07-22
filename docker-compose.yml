@@ -39,11 +39,12 @@ radarr:
     - PUID=1000
     - PGID=1000
   volumes:
-    - /mnt/storage/downloads:/downloads:rw
+    - /mnt/storage/downloads:/mnt/downloads:rw
     - /mnt/storage/dockerdata/radarr:/config:rw
     - /mnt/complete/Movies:/movies:rw
   links:
     - sabnzbd
+    - deluge
 
 deluge:
   build: deluge
@@ -100,14 +101,15 @@ sabnzbd:
     - /mnt/storage/dockerdata/sabnzbd:/mnt/state:rw
 
 file-watcher:
-  image: jsturgis/node-file-watcher:1.0.3
+  image: jsturgis/node-file-watcher:1.0.5
   user: jeff
   restart: always
   env_file: node-file-watcher.env
   volumes:
     - /mnt/complete:/mnt/src:rw
+    - /home/ec2-user/media-server-dockerfiles/file-watcher:/.ssh 
   environment:
     - watchedDir=/mnt/src
     - destPath=/mnt/store
     - useSsh=true
-    - certPath=/mnt/src/id_rsa
+    - certPath=/.ssh/id_rsa
